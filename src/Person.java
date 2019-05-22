@@ -1,9 +1,9 @@
 public class Person {
-    protected double mass;
+    protected int mass;
     protected int destinationFloor;
     protected int patienceLevel;
 
-    public Person(double mass, int destinationFloor, int patienceLevel) {
+    public Person(int mass, int destinationFloor, int patienceLevel) {
         this.mass = mass;
         this.destinationFloor = destinationFloor;
         this.patienceLevel = patienceLevel;
@@ -12,7 +12,7 @@ public class Person {
     public Person() {
     }
 
-    public double getMass() {
+    public int getMass() {
         return mass;
     }
 
@@ -28,23 +28,27 @@ public class Person {
         this.destinationFloor = destinationFloor;
     }
 
-    public void setMass(double mass) {
+    public void setMass(int mass) {
         this.mass = mass;
     }
 
     public void setPatienceLevel(int patienceLevel) {
         this.patienceLevel = patienceLevel;
     }
-    public boolean spaceInElevator(){
-        // kod najpierw trzeba napisac kod klasy winda i pozniej dac ja jako argument funkcji i na podstawie obciazenia zwrocic wartosc boolowska
-        return true;
+
+    public boolean spaceInElevator(Elevator elevator) {
+        if (elevator.pplInElevator.size() < elevator.getCapacity())
+            return true;
+        return false;
     }
-    public void deletePerson(Person person){
+
+    public void deletePerson(Person person) {
         person = null;
     }
-    public void decreasingPatienceLevel(){
+
+    public void decreasingPatienceLevel() {
         int temp;
-        temp=getPatienceLevel();
+        temp = getPatienceLevel();
         temp = temp - 1;
         setPatienceLevel(temp);
     }

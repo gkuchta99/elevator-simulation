@@ -9,13 +9,10 @@ public class Courier extends Person {
         this.pack = pack;
     }
 
-    public Courier(double mass, int destinationFloor, int patienceLevel) {
+    public Courier(int mass, int destinationFloor, int patienceLevel) {
         this.mass = mass;
         this.destinationFloor = destinationFloor;
         this.patienceLevel = patienceLevel;
         this.pack = true;
-    }
-
-    public Courier() {
     }
 }
