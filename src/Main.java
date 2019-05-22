@@ -11,12 +11,6 @@ public class Main {
 
 
         for (int i = 0; i < mainIterations; i++) { // main loop of our program
-            int x = 10;
-
-            for (int j = 1; j <= x; j++) {
-                Random r = new Random();
-                new Floor(j,r);
-            }
 
         }
     }

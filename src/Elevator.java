@@ -4,6 +4,24 @@ public class Elevator {
     private int floorNum;
     private int capacity; // capacity in person
     private int direction; // for 1 up for -1 down for 0 nothing
+    private int massCapacity; // in kilograms
+    private int actualMass;
+
+    public int getActualMass() {
+        return actualMass;
+    }
+
+    public void setActualMass(int actualMass) {
+        this.actualMass = actualMass;
+    }
+
+    public int getMassCapacity() {
+        return massCapacity;
+    }
+
+    public void setMassCapacity(int massCapacity) {
+        this.massCapacity = massCapacity;
+    }
 
     public int getFloorNum() {
         return floorNum;
@@ -29,10 +47,12 @@ public class Elevator {
         this.floorNum = floorNum;
     }
 
-    public Elevator(int floorNum, int direction, int capacity) {
+    public Elevator(int floorNum, int direction, int capacity, int massCapacity) {
         this.floorNum = floorNum;
         this.direction = direction;
         this.capacity = capacity;
+        this.massCapacity = massCapacity;
+        this.actualMass = 0;
     }
 
     public Elevator() {

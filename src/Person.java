@@ -37,7 +37,7 @@ public class Person {
     }
 
     public boolean spaceInElevator(Elevator elevator) {
-        if (elevator.pplInElevator.size() < elevator.getCapacity())
+        if (elevator.pplInElevator.size() < elevator.getCapacity() && elevator.getActualMass() + mass < elevator.getMassCapacity())
             return true;
         return false;
     }
