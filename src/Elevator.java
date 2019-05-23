@@ -47,9 +47,8 @@ public class Elevator {
         this.floorNum = floorNum;
     }
 
-    public Elevator(int floorNum, int direction, int capacity, int massCapacity) {
+    public Elevator(int floorNum, int capacity, int massCapacity) {
         this.floorNum = floorNum;
-        this.direction = direction;
         this.capacity = capacity;
         this.massCapacity = massCapacity;
         this.actualMass = 0;
@@ -58,9 +57,14 @@ public class Elevator {
     public Elevator() {
     }
 
-    public int getSignal() {
-        // metoda bedzie zwracala wartosc na jakim pietrze jest wzywana winda metoda jak na razie zwraca 1
-        return 1;
+    // method getSignal returns the closest floor (temporary solution)
+    public int getSignal(Floor[] floorsArray){
+        int destinationFloor = floorNum;
+        for (int i = 0; i < 9; i++) {
+            if (floorsArray[i].pplOnTheFloor.size()!=0 &&(Math.abs(floorNum - floorsArray[i].getFloorNum()) > Math.abs(floorNum - destinationFloor)))
+                destinationFloor = floorsArray[i].getFloorNum();
+        }
+        return destinationFloor;
     }
 
     ArrayList<Person> pplInElevator = new ArrayList<Person>(capacity);
