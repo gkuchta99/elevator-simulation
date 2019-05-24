@@ -45,7 +45,7 @@ public class Floor {
         this.upSignal = false;
     }
 
-    public Person personGenerator(Floor floor) {
+    public Person personGenerator() {
         int mass = 40 + (int) (Math.random() * ((100 - 40) + 1));
         int destinationLevel = 1 + (int) (Math.random() * ((10 - 1) + 1));
         int patienceLevel = 5 + (int) (Math.random() * ((15 - 5) + 1));
@@ -53,7 +53,7 @@ public class Floor {
         return person;
     }
 
-    public Disabled disabledGenerator(Floor floor) {
+    public Disabled disabledGenerator() {
         int mass = 40 + (int) (Math.random() * ((80 - 40) + 1));
         int destinationLevel = 1 + (int) (Math.random() * ((10 - 1) + 1));
         int patienceLevel = 100 + (int) (Math.random() * ((15 - 5) + 1));
@@ -61,7 +61,7 @@ public class Floor {
         return disabled;
     }
 
-    public Courier courierGenerator(Floor floor) {
+    public Courier courierGenerator() {
         int mass = 40 + (int) (Math.random() * ((100 - 40) + 1));
         int destinationLevel = 1 + (int) (Math.random() * ((10 - 1) + 1));
         int patienceLevel = 100 + (int) (Math.random() * ((15 - 5) + 1));
@@ -71,9 +71,10 @@ public class Floor {
 
     public void getPplIntoElevator(Elevator elevator) {
         if (pplOnTheFloor.size() != 0) {
-            for (int i = 0; i < pplOnTheFloor.size(); i++) {
+            for (int i = pplOnTheFloor.size() - 1; i <= 0; i--) {
                 if (pplOnTheFloor.get(i).spaceInElevator(elevator)) {
                     elevator.pplInElevator.add(pplOnTheFloor.get(i));
+                    pplOnTheFloor.remove(i);
                 }
             }
         }
