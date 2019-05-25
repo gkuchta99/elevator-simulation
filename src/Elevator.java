@@ -6,9 +6,18 @@ public class Elevator {
     private int direction; // for 1 up for -1 down for 0 nothing
     private int massCapacity; // in kilograms
     private int actualMass;
+    private boolean upDirection;
 
     public int getActualMass() {
         return actualMass;
+    }
+
+    public boolean getUpDirection() {
+        return upDirection;
+    }
+
+    public void setUpDirection(boolean upDirection) {
+        this.upDirection = upDirection;
     }
 
     public void setActualMass(int actualMass) {
@@ -31,10 +40,6 @@ public class Elevator {
         return capacity;
     }
 
-    public int getDirection() {
-        return direction;
-    }
-
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
@@ -52,19 +57,29 @@ public class Elevator {
         this.capacity = capacity;
         this.massCapacity = massCapacity;
         this.actualMass = 0;
-    }
-
-    public Elevator() {
+        this.upDirection = true;
     }
 
     // method getSignal returns the closest floor (temporary solution)
-    public int getSignal(Floor[] floorsArray){
-        int destinationFloor = floorNum;
-        for (int i = 0; i < 9; i++) {
-            if (floorsArray[i].pplOnTheFloor.size()!=0 &&(Math.abs(floorNum - floorsArray[i].getFloorNum()) > Math.abs(floorNum - destinationFloor)))
-                destinationFloor = floorsArray[i].getFloorNum();
+    /*public int getSignal(Floor[] floorsArray) {
+        // idk if needed
+    }*/
+    //its temporary solution !!!!
+    public void movingElevator() {
+        int temp = getFloorNum();
+        if (floorNum == 0) {
+            setUpDirection(true);
         }
-        return destinationFloor;
+        else if(floorNum==9) {
+            setUpDirection(false);
+        }
+        if (floorNum != 9 && upDirection) {
+            ++temp;
+            setFloorNum(temp);
+        } else if (floorNum != 0 && !upDirection) {
+            --temp;
+            setFloorNum(temp);
+        }
     }
 
     ArrayList<Person> pplInElevator = new ArrayList<Person>(capacity);
