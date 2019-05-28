@@ -5,6 +5,7 @@ public class Floor {
     private boolean upSignal;
     private boolean downSignal;
     private int floorNum;
+    public int floorType; // 0 to zwykle pietro 1 to biznesowe
     ArrayList<Person> pplOnTheFloor = new ArrayList<Person>();
 
     public int getFloorNum() {

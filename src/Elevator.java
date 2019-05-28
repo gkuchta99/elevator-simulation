@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Elevator {
     private int floorNum;
     private int capacity; // capacity in person
-    private int direction; // for 1 up for -1 down for 0 nothing
+    public int direction;
     private int massCapacity; // in kilograms
     private int actualMass;
     private boolean upDirection;
+    public boolean destinationAcomplished;
 
     public int getActualMass() {
         return actualMass;
@@ -65,12 +67,11 @@ public class Elevator {
         // idk if needed
     }*/
     //its temporary solution !!!!
-    public void movingElevator() {
-        int temp = getFloorNum();
+    public void movingElevator(Floor[] floorArray) {
+       /* int temp = getFloorNum();
         if (floorNum == 0) {
             setUpDirection(true);
-        }
-        else if(floorNum==9) {
+        } else if (floorNum == 9) {
             setUpDirection(false);
         }
         if (floorNum != 9 && upDirection) {
@@ -79,8 +80,35 @@ public class Elevator {
         } else if (floorNum != 0 && !upDirection) {
             --temp;
             setFloorNum(temp);
+        }*/
+        if (floorNum == direction) {
+            destinationAcomplished = true;
+        }
+        if (pplInElevator.size() != 0) {
+            int temp = 0;
+            if (destinationAcomplished) {
+                for (int i = 0; i < pplInElevator.size(); i++) {
+                    if (Math.abs(floorNum - pplInElevator.get(i).getDestinationFloor()) >= temp) {
+                        direction = pplInElevator.get(i).getDestinationFloor();
+                        temp = Math.abs(floorNum - direction);
+                    }
+                }
+                destinationAcomplished = false;
+            }
+        }
+        if (pplInElevator.size() == 0) {
+            int temp = 10;
+            for (int i = 0; i < 10; i++) {
+                if ((Math.abs(floorNum - floorArray[i].getFloorNum()) < temp) && (floorArray[i].getUpSignal() || floorArray[i].getDownSignal())) {
+                    direction = floorArray[i].getFloorNum();
+                    temp = Math.abs(floorNum-direction);
+
+                }
+                if (temp == 10) {
+                    direction = floorNum;
+                }
+            }
         }
     }
-
     ArrayList<Person> pplInElevator = new ArrayList<Person>(capacity);
 }

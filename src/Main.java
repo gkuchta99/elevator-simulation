@@ -1,8 +1,16 @@
+import javax.imageio.IIOException;
+import java.io.*;
 import java.nio.channels.FileLock;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        PrintWriter printWriter = null;
+        try {
+            printWriter = new PrintWriter("data.txt");
+        } catch (FileNotFoundException e) {
+            System.err.println("FILE NOT FOUND");
+        }
         Floor[] floorsArray = new Floor[10]; // temporary solution
         for (int i = 0; i < 10; i++) {
             Floor floor = new Floor(i);
@@ -26,11 +34,12 @@ public class Main {
                     if (elevator.pplInElevator.get(a).getDestinationFloor() == elevator.getFloorNum()) {
                         elevator.setActualMass(elevator.getActualMass() - elevator.pplInElevator.get(a).getMass());
                         elevator.pplInElevator.remove(a);
+                        printWriter.println("Person exited elevator at:"+elevator.getFloorNum()+" floor");
                     }
                 }
             }
             //pressing buttons on the floors (works)
-            /*for (int b = 0; b < 10; b++) {
+            for (int b = 0; b < 10; b++) {
                 if (!floorsArray[b].pplOnTheFloor.isEmpty()) {
                     for (int c = 0; c < floorsArray[b].pplOnTheFloor.size(); c++) {
                         if (floorsArray[b].pplOnTheFloor.get(c).getDestinationFloor() - b > 0 && floorsArray[b].getUpSignal() == false) {
@@ -40,20 +49,11 @@ public class Main {
                         }
                     }
                 }
-            }*/
+            }
             //its temporary solution (works)
-            elevator.movingElevator();
-            System.out.println("actual flor:" + elevator.getFloorNum());
+            elevator.movingElevator(floorsArray);
             // ppl getting into elevator (works)
             floorsArray[elevator.getFloorNum()].getPplIntoElevator(elevator);
-            for (int d = 0; d < elevator.pplInElevator.size(); d++) {
-                System.out.println(elevator.pplInElevator.get(d).getDestinationFloor());
-            }
-            System.err.println("------------------");
-            //generating ppl on the floors
-            for (int e = 0; e < 2; e++) {
-                floorsArray[(int) Math.random() * 9].pplOnTheFloor.add(floorsArray[0].personGenerator());
-            }
             //decreasing patience level
             for (int f = 0; f < 10; f++) {
                 for (int g = floorsArray[f].pplOnTheFloor.size() - 1; g >= 0; g--) {
@@ -64,7 +64,11 @@ public class Main {
                     }
                 }
             }
-
+            //generating ppl on the floors
+            for (int e = 0; e < 2; e++) {
+                floorsArray[(int) Math.random() * 9].pplOnTheFloor.add(floorsArray[0].personGenerator());
+            }
         }
+        printWriter.close();
     }
 }
