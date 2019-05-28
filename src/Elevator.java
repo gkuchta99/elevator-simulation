@@ -4,11 +4,11 @@ import java.util.List;
 public class Elevator {
     private int floorNum;
     private int capacity; // capacity in person
-    public int direction;
+    public int direction; // public bo bedzie modyfikowany
     private int massCapacity; // in kilograms
     private int actualMass;
     private boolean upDirection;
-    public boolean destinationAcomplished;
+    public boolean destinationAcomplished; // public bo bedzie modyfikowany
 
     public int getActualMass() {
         return actualMass;

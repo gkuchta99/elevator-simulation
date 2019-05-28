@@ -5,7 +5,7 @@ public class Floor {
     private boolean upSignal;
     private boolean downSignal;
     private int floorNum;
-    public int floorType; // 0 to zwykle pietro 1 to biznesowe
+    public int floorType; // 0 to zwykle pietro 1 to biznesowe akutalnie public poniewaz bedzie modyfikowany
     ArrayList<Person> pplOnTheFloor = new ArrayList<Person>();
 
     public int getFloorNum() {
