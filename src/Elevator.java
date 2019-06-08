@@ -109,6 +109,13 @@ public class Elevator {
                 }
             }
         }
+        //ruszamy winda
+        if(direction<floorNum){
+            floorNum--;
+        }
+        else if(direction>floorNum){
+            floorNum++;
+        }
     }
     ArrayList<Person> pplInElevator = new ArrayList<Person>(capacity);
 }

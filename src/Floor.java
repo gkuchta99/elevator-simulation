@@ -78,6 +78,8 @@ public class Floor {
                     elevator.setActualMass(elevator.getActualMass() + pplOnTheFloor.get(i).getMass());
                     pplOnTheFloor.remove(i);
                     // trzeba dodac mase do actual mass w windzie
+                    System.out.println("osoba weszla do windy na "+elevator.getFloorNum()+" pietrze");
+
                 }
             }
         }
