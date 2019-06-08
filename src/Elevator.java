@@ -41,20 +41,7 @@ public class Elevator {
         this.actualMass = 0;
     }
 
-    public void movingElevator(Floor[] floorArray) {
-       /* int temp = getFloorNum();
-        if (floorNum == 0) {
-            setUpDirection(true);
-        } else if (floorNum == 9) {
-            setUpDirection(false);
-        }
-        if (floorNum != 9 && upDirection) {
-            ++temp;
-            setFloorNum(temp);
-        } else if (floorNum != 0 && !upDirection) {
-            --temp;
-            setFloorNum(temp);
-        }*/
+    public void movingElevator(Floor[] floorArray,int[] directionsArray,int elevatorNum){
         if (floorNum == direction) {
             destinationAcomplished = true;
         }
@@ -73,7 +60,7 @@ public class Elevator {
         if (pplInElevator.size() == 0) {
             int temp = 10;
             for (int i = 0; i < 10; i++) {
-                if ((Math.abs(floorNum - floorArray[i].getFloorNum()) < temp) && (floorArray[i].getSignal())) {
+                if ((Math.abs(floorNum - floorArray[i].getFloorNum()) < temp) && (floorArray[i].getSignal())&& (floorArray[i].getFloorNum()!=directionsArray[(elevatorNum+1)%3])&& (floorArray[i].getFloorNum()!=directionsArray[(elevatorNum+2)%3])) {
                     direction = floorArray[i].getFloorNum();
                     temp = Math.abs(floorNum - direction);
 

@@ -9,10 +9,7 @@ public class Person {
         this.destinationFloor = destinationFloor;
         this.patienceLevel = patienceLevel;
     }
-
-    public Person() {
-    }
-
+    public Person(){}
     public int getMass() {
         return mass;
     }
@@ -38,10 +35,10 @@ public class Person {
     }
 
     public boolean spaceInElevator(Elevator elevator) {
-        if((elevator.getFloorNum()-elevator.direction)*(elevator.getFloorNum()-destinationFloor)>=0){
-        if (elevator.pplInElevator.size()< elevator.getCapacity() && elevator.getActualMass() + mass <= elevator.getMassCapacity()) {
-            return true;
-        }
+        if ((elevator.getFloorNum() - elevator.direction) * (elevator.getFloorNum() - destinationFloor) >= 0) {
+            if (elevator.pplInElevator.size() < elevator.getCapacity() && elevator.getActualMass() + mass <= elevator.getMassCapacity()) {
+                return true;
+            }
         }
         return false;
     }

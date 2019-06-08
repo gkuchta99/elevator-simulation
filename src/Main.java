@@ -1,9 +1,9 @@
 import javax.imageio.IIOException;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.*;
 import java.nio.channels.FileLock;
 import java.util.ArrayList;
 
-/*Sajkowski-Kuchta*/
 public class Main {
     public static void main(String[] args) {
        /* PrintWriter printWriter = null;
@@ -18,34 +18,47 @@ public class Main {
             floorsArray[i] = floor;
         }
         Elevator[] elevatorArray = new Elevator[3];
-        for(int j = 0;j<3;j++) {
+        for (int j = 0; j < 3; j++) {
             Elevator elevator = new Elevator(0, 14, 1000);
-            elevatorArray[j]=elevator;
-
+            elevatorArray[j] = elevator;
         }
         int[] randomPeopleArray = {1, 2, 0, 1, 1, 0, 0, 1, 2, 0, 0, 1, 2, 1, 1, 2, 0, 1, 1, 1, 1, 2, 2, 1, 0, 0};
+        int[] directionsArray = new int[3];
         int[] choosingPeopleTypes = {1, 1, 1, 2, 3, 1, 1, 2, 3, 2, 2, 1, 1, 1, 1, 2};
         //main loop of simulation
         for (int x = 0; x < 100; x++) {
+            for (int z = 0; z < 3; z++) {
+                directionsArray[z] = elevatorArray[z].direction;
+            }
             System.err.println("----------------------------------------------");
             //exiting ppl from elevator (works)
-            elevator.exit(floorsArray);
+            elevatorArray[0].exit(floorsArray);
             //pressing buttons on the floors (works)
             for (int g = 0; g < 10; g++) {
-                if(floorsArray[g].getFloorNum()==elevator.getFloorNum()){
+                if (floorsArray[g].getFloorNum() == elevatorArray[0].getFloorNum()) {
                     floorsArray[g].setSignal(false);
                 }
                 if (!floorsArray[g].pplOnTheFloor.isEmpty()) {
                     floorsArray[g].setSignal(true);
                 }
             }
-            System.out.println("winda docelowo jedzie na " + elevator.direction + " pietro");
-            System.out.println("winda jest na " + elevator.getFloorNum() + " pietrze");
-            elevator.movingElevator(floorsArray);
-            System.out.println("winda jest na " + elevator.getFloorNum() + " pietrze");
+            for (int g = 0; g < 3; g++) {
+                System.out.println("------------------------------------");
+                System.out.println("winda "+g+" jest na " + elevatorArray[g].getFloorNum() + " pietrze");
+                elevatorArray[g].movingElevator(floorsArray,directionsArray,g);
+                for (int z = 0; z < 3; z++) {
+                    directionsArray[z] = elevatorArray[z].direction;
+                }
+                System.out.println("winda "+g+" jest na " + elevatorArray[g].getFloorNum() + " pietrze");
+                System.out.println("winda "+g+" docelowo jedzie na " + elevatorArray[g].direction + " pietro");
+                System.out.println("w"+g+" windzie jest " + elevatorArray[g].pplInElevator.size() + " osob");
+                System.out.println("------------------------------------");
+            }
             // ppl getting into elevator (works) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            floorsArray[elevator.getFloorNum()].getPplIntoElevator(elevator);
-            System.out.println("w windzie jest "+ elevator.pplInElevator.size()+" osob");
+            for(int i=0;i<3;i++){
+                floorsArray[elevatorArray[i].getFloorNum()].getPplIntoElevator(elevatorArray[i]);
+            }
+
 
             //decreasing patience level
             for (int f = 0; f < 10; f++) {
