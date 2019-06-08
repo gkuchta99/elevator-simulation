@@ -14,5 +14,4 @@ public class Courier extends Person {
         }
         Collections.sort(packList);
     }
-
 }

@@ -102,7 +102,7 @@ public class Elevator {
             for (int i = 0; i < 10; i++) {
                 if ((Math.abs(floorNum - floorArray[i].getFloorNum()) < temp) && (floorArray[i].getUpSignal() || floorArray[i].getDownSignal())) {
                     direction = floorArray[i].getFloorNum();
-                    temp = Math.abs(floorNum-direction);
+                    temp = Math.abs(floorNum - direction);
 
                 }
                 if (temp == 10) {
@@ -111,11 +111,31 @@ public class Elevator {
             }
         }
         //ruszamy winda
-        if(direction<floorNum){
+        if (direction < floorNum) {
             floorNum--;
-        }
-        else if(direction>floorNum){
+        } else if (direction > floorNum) {
             floorNum++;
+        }
+    }
+
+    public void exit(Floor floorArray[]) {
+        for (int i = pplInElevator.size() - 1; i >= 0; i--) {
+            if (pplInElevator.get(i).getDestinationFloor() == floorNum) {
+                if (pplInElevator.get(i) instanceof Courier) {
+                    for (int j = 0; j < ((Courier) pplInElevator.get(i)).packList.size(); j++) {
+                        if (((Courier) pplInElevator.get(i)).packList.get(0).getDestinationFloor() == floorNum) {
+                            ((Courier) pplInElevator.get(i)).packList.remove(0);
+                        }
+                    }
+                    if (((Courier) pplInElevator.get(i)).packList.isEmpty()) {
+                        pplInElevator.get(i).setDestinationFloor(0);
+                    } else {
+                        pplInElevator.get(i).setDestinationFloor(((Courier) pplInElevator.get(i)).packList.get(0).getDestinationFloor());
+                    }
+                    floorArray[floorNum].pplOnTheFloor.add(pplInElevator.get(i));
+                }
+                pplInElevator.remove(i);
+            }
         }
     }
 }

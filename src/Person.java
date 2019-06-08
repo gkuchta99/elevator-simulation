@@ -42,10 +42,6 @@ public class Person {
         }
         return false;
     }
-/*
-    public void deletePerson(Person person) {
-        person = null;
-    }*/
 
     public void decreasingPatienceLevel() {
         int temp;

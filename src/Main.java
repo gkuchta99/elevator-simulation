@@ -30,7 +30,9 @@ public class Main {
                     if(elevator.pplInElevator.get(a).getDestinationFloor()==elevator.getFloorNum()){
                         if(elevator.pplInElevator.get(a) instanceof Courier){
                             floorsArray[elevator.getFloorNum()].pplOnTheFloor.add(elevator.pplInElevator.get(a));
-                            elevator.pplInElevator.get(a).exit();
+
+                        }
+                        else{
 
                         }
                     }
