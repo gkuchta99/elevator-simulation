@@ -2,6 +2,7 @@ import javax.imageio.IIOException;
 import java.io.*;
 import java.nio.channels.FileLock;
 import java.util.ArrayList;
+
 /*Sajkowski-Kuchta*/
 public class Main {
     public static void main(String[] args) {
@@ -17,14 +18,8 @@ public class Main {
             floorsArray[i] = floor;
         }
         Elevator elevator = new Elevator(0, 14, 1000);
-        /*for (int j = 0; j < 10; j++) { generatin some ppl in elevator
-            elevator.pplInElevator.add(floorsArray[0].personGenerator());
-        }*/
-
-        // generating some ppl on the floor
-      /* for (int f = 0; f < 10; f++) {
-           floorsArray[f].pplOnTheFloor.add(floorsArray[f].personGenerator());
-       }*/
+        int[] randomPeopleArray = {1, 2, 0, 1, 1, 0, 0, 1, 2, 0, 0, 1, 2, 1, 1, 2, 0, 1, 1, 1, 1, 2, 2, 1, 0, 0};
+        int[] choosingPeopleTypes = {1, 1, 1, 2, 3, 1, 1, 2, 3, 2, 2, 1, 1, 1, 1, 2};
 
         //main loop of simulation
         for (int x = 0; x < 100; x++) {
@@ -32,11 +27,12 @@ public class Main {
             //exiting ppl from elevator (works)
             if (!elevator.pplInElevator.isEmpty()) {
                 for (int a = elevator.pplInElevator.size() - 1; a >= 0; a--) {
-                    if (elevator.pplInElevator.get(a).getDestinationFloor() == elevator.getFloorNum()) {
-                        elevator.setActualMass(elevator.getActualMass() - elevator.pplInElevator.get(a).getMass());
-                        elevator.pplInElevator.remove(a);
-                       // printWriter.println("Person exited elevator at:"+elevator.getFloorNum()+" floor");
-                        System.out.println("Person exited elevator at:"+elevator.getFloorNum()+" floor");
+                    if(elevator.pplInElevator.get(a).getDestinationFloor()==elevator.getFloorNum()){
+                        if(elevator.pplInElevator.get(a) instanceof Courier){
+                            floorsArray[elevator.getFloorNum()].pplOnTheFloor.add(elevator.pplInElevator.get(a));
+                            elevator.pplInElevator.get(a).exit();
+
+                        }
                     }
                 }
             }
@@ -52,11 +48,10 @@ public class Main {
                     }
                 }
             }
-            //its temporary solution (works)
-            System.out.println("winda docelowo jedzie na "+elevator.direction+" pietro");
-            System.out.println("winda jest na "+elevator.getFloorNum()+" pietrze");
+            System.out.println("winda docelowo jedzie na " + elevator.direction + " pietro");
+            System.out.println("winda jest na " + elevator.getFloorNum() + " pietrze");
             elevator.movingElevator(floorsArray);
-            System.out.println("winda jest na "+elevator.getFloorNum()+" pietrze");
+            System.out.println("winda jest na " + elevator.getFloorNum() + " pietrze");
             // ppl getting into elevator (works) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             floorsArray[elevator.getFloorNum()].getPplIntoElevator(elevator);
 
@@ -71,11 +66,24 @@ public class Main {
                 }
             }
             //generating ppl on the floors
-            for (int e = 0; e < 2; e++) {
-               int a= (int) (Math.random() * 9);
-
-                floorsArray[a].pplOnTheFloor.add(floorsArray[a].personGenerator());
-                System.out.println("wygenerowano na "+a+" pietrze ");
+            for (int e = 0; e < randomPeopleArray[(int) (Math.random() * (randomPeopleArray.length - 1))]; e++) {
+                int a = (int) (Math.random() * 9);
+                switch (choosingPeopleTypes[(int) (Math.random() * (choosingPeopleTypes.length - 1))]) {
+                    case 1:
+                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].personGenerator());
+                        System.out.println("wygenerowano zwykla osobe na " + a + " pietrze");
+                        break;
+                    case 2:
+                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].courierGenerator());
+                        System.out.println("wygenerowano kuriera na " + a + " pietrze");
+                        break;
+                    case 3:
+                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].disabledGenerator());
+                        System.out.println("wygenerowano niepelnosprawnego na " + a + " pietrze");
+                        break;
+                    default:
+                        System.err.println("Blad przy generowaniu typow ludzi");
+                }
             }
             System.err.println("----------------------------------------------");
         }

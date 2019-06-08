@@ -9,6 +9,7 @@ public class Elevator {
     private int actualMass;
     private boolean upDirection;
     public boolean destinationAcomplished; // public bo bedzie modyfikowany
+    ArrayList<Person> pplInElevator = new ArrayList<>(capacity);
 
     public int getActualMass() {
         return actualMass;
@@ -117,5 +118,4 @@ public class Elevator {
             floorNum++;
         }
     }
-    ArrayList<Person> pplInElevator = new ArrayList<Person>(capacity);
 }

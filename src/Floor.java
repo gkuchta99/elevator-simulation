@@ -56,7 +56,7 @@ public class Floor {
 
     public Disabled disabledGenerator() {
         int mass = 40 + (int) (Math.random() * ((80 - 40) + 1));
-        int destinationLevel = 1 + (int) (Math.random() * 9);
+        int destinationLevel = (int) (Math.random() * 9);
         int patienceLevel = 100 + (int) (Math.random() * ((15 - 5) + 1));
         Disabled disabled = new Disabled(mass, destinationLevel, patienceLevel);
         return disabled;
@@ -64,7 +64,7 @@ public class Floor {
 
     public Courier courierGenerator() {
         int mass = 40 + (int) (Math.random() * ((100 - 40) + 1));
-        int destinationLevel = 1 + (int) (Math.random() * 9);
+        int destinationLevel = 1 + (int) (Math.random() * 8); // kurier nie moze miec destination floor == 0
         int patienceLevel = 100 + (int) (Math.random() * ((15 - 5) + 1));
         Courier courier = new Courier(mass, destinationLevel, patienceLevel);
         return courier;
