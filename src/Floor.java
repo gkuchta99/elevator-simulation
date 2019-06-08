@@ -1,72 +1,53 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Floor {
-    private boolean upSignal;
-    private boolean downSignal;
+    private boolean signal;
     private int floorNum;
-    public int floorType; // 0 to zwykle pietro 1 to biznesowe akutalnie public poniewaz bedzie modyfikowany
-    ArrayList<Person> pplOnTheFloor = new ArrayList<Person>();
+    ArrayList<Person> pplOnTheFloor = new ArrayList<>();
 
     public int getFloorNum() {
         return floorNum;
     }
 
-    public boolean getUpSignal() {
-        return upSignal;
+    public void setSignal(boolean signal) {
+        this.signal = signal;
     }
 
-    public boolean getDownSignal() {
-        return downSignal;
-    }
-
-    public void setFloorNum(int floorNum) {
-        this.floorNum = floorNum;
-    }
-
-    public void setDownSignal(boolean downSignal) {
-        this.downSignal = downSignal;
-    }
-
-    public void setUpSignal(boolean upSignal) {
-        this.upSignal = upSignal;
-    }
-
-    public boolean pressedButton() {
-        // metoda zwraca czy jaki kolwiek sygnal jest wcisniety
-        if (this.upSignal || this.downSignal) {
-            return true;
-        }
-        return false;
+    public boolean getSignal() {
+        return signal;
     }
 
     public Floor(int floorNum) {
         this.floorNum = floorNum;
-        this.downSignal = false;
-        this.upSignal = false;
+        this.signal = false;
     }
 
     public Person personGenerator() {
+        int temp;
         int mass = 40 + (int) (Math.random() * ((100 - 40) + 1));
-        int destinationLevel = 1 + (int) (Math.random() * 9);
+        do {
+            temp = (int) (Math.random() * 9);
+        } while (temp == floorNum);
         int patienceLevel = 5 + (int) (Math.random() * ((15 - 5) + 1));
-        Person person = new Person(mass, destinationLevel, patienceLevel);
+        Person person = new Person(mass, temp, patienceLevel);
         return person;
     }
 
-    public Disabled disabledGenerator() {
-        int mass = 40 + (int) (Math.random() * ((80 - 40) + 1));
-        int destinationLevel = (int) (Math.random() * 9);
-        int patienceLevel = 100 + (int) (Math.random() * ((15 - 5) + 1));
-        Disabled disabled = new Disabled(mass, destinationLevel, patienceLevel);
-        return disabled;
+    public Kid kidGenerator() {
+        int temp;
+        int mass = 15 + (int) (Math.random() * 35);
+        do {
+            temp = (int) (Math.random() * 9);
+        } while (temp == floorNum);
+
+        int patienceLevel = 5 + (int) (Math.random() * ((15 - 5) + 1));
+        Kid kid = new Kid(mass, temp, patienceLevel);
+        return kid;
     }
 
     public Courier courierGenerator() {
         int mass = 40 + (int) (Math.random() * ((100 - 40) + 1));
-        int destinationLevel = 1 + (int) (Math.random() * 8); // kurier nie moze miec destination floor == 0
-        int patienceLevel = 100 + (int) (Math.random() * ((15 - 5) + 1));
-        Courier courier = new Courier(mass, destinationLevel, patienceLevel);
+        Courier courier = new Courier(mass, 100);
         return courier;
     }
 
@@ -77,8 +58,7 @@ public class Floor {
                     elevator.pplInElevator.add(pplOnTheFloor.get(i));
                     elevator.setActualMass(elevator.getActualMass() + pplOnTheFloor.get(i).getMass());
                     pplOnTheFloor.remove(i);
-                    // trzeba dodac mase do actual mass w windzie
-                    System.out.println("osoba weszla do windy na "+elevator.getFloorNum()+" pietrze");
+                    System.out.println("osoba weszla do windy na " + elevator.getFloorNum() + " pietrze");
 
                 }
             }

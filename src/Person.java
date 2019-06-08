@@ -2,6 +2,7 @@ public class Person {
     protected int mass;
     protected int destinationFloor;
     protected int patienceLevel;
+    protected boolean upDirection;
 
     public Person(int mass, int destinationFloor, int patienceLevel) {
         this.mass = mass;
@@ -37,8 +38,10 @@ public class Person {
     }
 
     public boolean spaceInElevator(Elevator elevator) {
-        if (elevator.pplInElevator.size() < elevator.getCapacity() && elevator.getActualMass() + mass < elevator.getMassCapacity()) {
+        if((elevator.getFloorNum()-elevator.direction)*(elevator.getFloorNum()-destinationFloor)>=0){
+        if (elevator.pplInElevator.size()< elevator.getCapacity() && elevator.getActualMass() + mass <= elevator.getMassCapacity()) {
             return true;
+        }
         }
         return false;
     }

@@ -17,37 +17,26 @@ public class Main {
             Floor floor = new Floor(i);
             floorsArray[i] = floor;
         }
-        Elevator elevator = new Elevator(0, 14, 1000);
+        Elevator[] elevatorArray = new Elevator[3];
+        for(int j = 0;j<3;j++) {
+            Elevator elevator = new Elevator(0, 14, 1000);
+            elevatorArray[j]=elevator;
+
+        }
         int[] randomPeopleArray = {1, 2, 0, 1, 1, 0, 0, 1, 2, 0, 0, 1, 2, 1, 1, 2, 0, 1, 1, 1, 1, 2, 2, 1, 0, 0};
         int[] choosingPeopleTypes = {1, 1, 1, 2, 3, 1, 1, 2, 3, 2, 2, 1, 1, 1, 1, 2};
-
         //main loop of simulation
         for (int x = 0; x < 100; x++) {
             System.err.println("----------------------------------------------");
             //exiting ppl from elevator (works)
-            if (!elevator.pplInElevator.isEmpty()) {
-                for (int a = elevator.pplInElevator.size() - 1; a >= 0; a--) {
-                    if(elevator.pplInElevator.get(a).getDestinationFloor()==elevator.getFloorNum()){
-                        if(elevator.pplInElevator.get(a) instanceof Courier){
-                            floorsArray[elevator.getFloorNum()].pplOnTheFloor.add(elevator.pplInElevator.get(a));
-
-                        }
-                        else{
-
-                        }
-                    }
-                }
-            }
+            elevator.exit(floorsArray);
             //pressing buttons on the floors (works)
-            for (int b = 0; b < 10; b++) {
-                if (!floorsArray[b].pplOnTheFloor.isEmpty()) {
-                    for (int c = 0; c < floorsArray[b].pplOnTheFloor.size(); c++) {
-                        if (floorsArray[b].pplOnTheFloor.get(c).getDestinationFloor() - b > 0 && floorsArray[b].getUpSignal() == false) {
-                            floorsArray[b].setUpSignal(true);
-                        } else if (floorsArray[b].pplOnTheFloor.get(c).getDestinationFloor() - b < 0 && floorsArray[b].getDownSignal() == false) {
-                            floorsArray[b].setDownSignal(true);
-                        }
-                    }
+            for (int g = 0; g < 10; g++) {
+                if(floorsArray[g].getFloorNum()==elevator.getFloorNum()){
+                    floorsArray[g].setSignal(false);
+                }
+                if (!floorsArray[g].pplOnTheFloor.isEmpty()) {
+                    floorsArray[g].setSignal(true);
                 }
             }
             System.out.println("winda docelowo jedzie na " + elevator.direction + " pietro");
@@ -56,6 +45,7 @@ public class Main {
             System.out.println("winda jest na " + elevator.getFloorNum() + " pietrze");
             // ppl getting into elevator (works) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             floorsArray[elevator.getFloorNum()].getPplIntoElevator(elevator);
+            System.out.println("w windzie jest "+ elevator.pplInElevator.size()+" osob");
 
             //decreasing patience level
             for (int f = 0; f < 10; f++) {
@@ -80,8 +70,8 @@ public class Main {
                         System.out.println("wygenerowano kuriera na " + a + " pietrze");
                         break;
                     case 3:
-                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].disabledGenerator());
-                        System.out.println("wygenerowano niepelnosprawnego na " + a + " pietrze");
+                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].kidGenerator());
+                        System.out.println("wygenerowano dziecko na " + a + " pietrze");
                         break;
                     default:
                         System.err.println("Blad przy generowaniu typow ludzi");
