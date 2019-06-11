@@ -1,6 +1,5 @@
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Elevator {
     private int floorNum;
@@ -25,10 +24,6 @@ public class Elevator {
 
     public int getMassCapacity() {
         return massCapacity;
-    }
-
-    public void setMassCapacity(int massCapacity) {
-        this.massCapacity = massCapacity;
     }
 
     public int getFloorNum() {

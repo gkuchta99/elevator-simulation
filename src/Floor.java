@@ -23,32 +23,31 @@ public class Floor {
         this.signal = false;
     }
 
-    public Person personGenerator() {
+    public Person personGenerator(int floors) {
         int temp;
         int mass = 40 + (int) (Math.random() * ((100 - 40) + 1));
         do {
-            temp = (int) (Math.random() * 9);
+            temp = (int) (Math.random() * (floors - 1));
         } while (temp == floorNum);
         int patienceLevel = 5 + (int) (Math.random() * ((15 - 5) + 1));
         Person person = new Person(mass, temp, patienceLevel);
         return person;
     }
 
-    public Kid kidGenerator() {
+    public Kid kidGenerator(int floors) {
         int temp;
         int mass = 15 + (int) (Math.random() * 35);
         do {
-            temp = (int) (Math.random() * 9);
+            temp = (int) (Math.random() * (floors - 1));
         } while (temp == floorNum);
-
         int patienceLevel = 5 + (int) (Math.random() * ((15 - 5) + 1));
         Kid kid = new Kid(mass, temp, patienceLevel);
         return kid;
     }
 
-    public Courier courierGenerator() {
+    public Courier courierGenerator(int floors) {
         int mass = 40 + (int) (Math.random() * ((100 - 40) + 1));
-        Courier courier = new Courier(mass, 100);
+        Courier courier = new Courier(mass, 100,floors);
         return courier;
     }
 

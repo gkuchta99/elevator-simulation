@@ -1,8 +1,5 @@
-import javax.imageio.IIOException;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.io.*;
-import java.nio.channels.FileLock;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,8 +9,11 @@ public class Main {
         } catch (FileNotFoundException e) {
             System.err.println("FILE NOT FOUND");
         }
-        Floor[] floorsArray = new Floor[10]; // temporary solution
-        for (int i = 0; i < 10; i++) {
+        int floors = 10;
+        Scanner scanner = new Scanner(System.in);
+        int iterations = scanner.nextInt();
+        Floor[] floorsArray = new Floor[floors]; // temporary solution
+        for (int i = 0; i < floors; i++) {
             Floor floor = new Floor(i);
             floorsArray[i] = floor;
         }
@@ -24,23 +24,23 @@ public class Main {
         }
         int[] randomPeopleArray = {1, 2, 0, 1, 1, 0, 0, 1, 2, 0, 0, 1, 2, 1, 1, 2, 0, 1, 1, 1, 1, 2, 2, 1, 0, 0};
         int[] directionsArray = new int[3];
-        int[] choosingPeopleTypes = {1, 1, 1, 2, 3, 1, 1, 2, 3, 2, 2, 1, 1, 1, 1, 2};
+        int[] choosingPeopleTypes = {1, 1, 1,3, 1, 1, 2,3,1, 1, 1, 1, 1, 3};
         //main loop of simulation
-        for (int x = 0; x < 100; x++) {
+        for (int x = 0; x < iterations; x++) {
             printWriter.println("==============================================");
             printWriter.println("TURN:" + x);
             //generating ppl on the floors
             for (int e = 0; e < randomPeopleArray[(int) (Math.random() * (randomPeopleArray.length - 1))]; e++) {
-                int a = (int) (Math.random() * 9);
+                int a = (int) (Math.random() * (floorsArray.length - 1));
                 switch (choosingPeopleTypes[(int) (Math.random() * (choosingPeopleTypes.length - 1))]) {
                     case 1:
-                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].personGenerator());
+                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].personGenerator(floors));
                         break;
                     case 2:
-                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].courierGenerator());
+                        floorsArray[0].pplOnTheFloor.add(floorsArray[a].courierGenerator(floors));
                         break;
                     case 3:
-                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].kidGenerator());
+                        floorsArray[a].pplOnTheFloor.add(floorsArray[a].kidGenerator(floors));
                         break;
                     default:
                         System.err.println("ERROR-GENERATING-PEOPLE");
@@ -58,11 +58,13 @@ public class Main {
                 printWriter.println("Elevator:" + i + ", people in elevator:" + elevatorArray[i].pplInElevator.size());
             }
             //pressing buttons on the floors (works)
-            for (int g = 0; g < 10; g++) {
-                if (floorsArray[g].getFloorNum() == elevatorArray[0].getFloorNum()) {
-                    floorsArray[g].setSignal(false);
-                } else if (!floorsArray[g].pplOnTheFloor.isEmpty()) {
-                    floorsArray[g].setSignal(true);
+            for (int g = 0; g < floorsArray.length; g++) {
+                for (int i = 0; i < 3; i++) {
+                    if (floorsArray[g].getFloorNum() == elevatorArray[i].getFloorNum()) {
+                        floorsArray[g].setSignal(false);
+                    } else if (!floorsArray[g].pplOnTheFloor.isEmpty()) {
+                        floorsArray[g].setSignal(true);
+                    }
                 }
             }
             printWriter.println("Actions=======================================");
@@ -87,7 +89,7 @@ public class Main {
                 floorsArray[elevatorArray[i].getFloorNum()].getPplIntoElevator(elevatorArray[i], printWriter);
             }
             //decreasing patience level
-            for (int f = 0; f < 10; f++) {
+            for (int f = 0; f < floorsArray.length; f++) {
                 for (int g = floorsArray[f].pplOnTheFloor.size() - 1; g >= 0; g--) {
                     floorsArray[f].pplOnTheFloor.get(g).decreasingPatienceLevel();
                     if (floorsArray[f].pplOnTheFloor.get(g).getPatienceLevel() == 0) {
