@@ -1,14 +1,19 @@
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Elevator {
     private int floorNum;
-    private int capacity; // capacity in person
-    int direction; // public bo bedzie modyfikowany
+    private int capacity;
+    private int direction;
     private int massCapacity; // in kilograms
     private int actualMass;
-    boolean destinationAcomplished; // public bo bedzie modyfikowany
+    private boolean destinationAcomplished;
     ArrayList<Person> pplInElevator = new ArrayList<>(capacity);
+
+    public int getDirection() {
+        return direction;
+    }
 
     public int getActualMass() {
         return actualMass;
@@ -41,7 +46,7 @@ public class Elevator {
         this.actualMass = 0;
     }
 
-    public void movingElevator(Floor[] floorArray,int[] directionsArray,int elevatorNum){
+    public void movingElevator(Floor[] floorArray, int[] directionsArray, int elevatorNum) {
         if (floorNum == direction) {
             destinationAcomplished = true;
         }
@@ -60,7 +65,7 @@ public class Elevator {
         if (pplInElevator.size() == 0) {
             int temp = 10;
             for (int i = 0; i < 10; i++) {
-                if ((Math.abs(floorNum - floorArray[i].getFloorNum()) < temp) && (floorArray[i].getSignal())&& (floorArray[i].getFloorNum()!=directionsArray[(elevatorNum+1)%3])&& (floorArray[i].getFloorNum()!=directionsArray[(elevatorNum+2)%3])) {
+                if ((Math.abs(floorNum - floorArray[i].getFloorNum()) < temp) && (floorArray[i].getSignal()) && (floorArray[i].getFloorNum() != directionsArray[(elevatorNum + 1) % 3]) && (floorArray[i].getFloorNum() != directionsArray[(elevatorNum + 2) % 3])) {
                     direction = floorArray[i].getFloorNum();
                     temp = Math.abs(floorNum - direction);
 
@@ -77,7 +82,7 @@ public class Elevator {
         }
     }
 
-    public void exit(Floor floorArray[]) {
+    public void exit(Floor floorArray[], PrintWriter printWriter) {
         for (int i = pplInElevator.size() - 1; i >= 0; i--) {
             if (pplInElevator.get(i).getDestinationFloor() == floorNum) {
                 if (pplInElevator.get(i) instanceof Courier) {
@@ -94,15 +99,7 @@ public class Elevator {
                     }
                     floorArray[floorNum].pplOnTheFloor.add(pplInElevator.get(i));
                 }
-                if(pplInElevator.get(i) instanceof Courier){
-                    System.out.println("Kurier wyszedl na "+floorNum+" pietrze");
-                }
-                else if(pplInElevator.get(i) instanceof Kid){
-                    System.out.println("Dziecko wyszlo na "+floorNum+" pietrze");
-                }
-                else {
-                    System.out.println("Czlowiek wyszedl na "+floorNum+" pietrze");
-                }
+                printWriter.println(pplInElevator.get(i).getName() + " exited elevator at:" + floorNum + " floor");
                 pplInElevator.remove(i);
             }
         }

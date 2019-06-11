@@ -4,15 +4,20 @@ import java.util.Collections;
 public class Courier extends Person {
     ArrayList<Pack> packList = new ArrayList<>();
 
-    public Courier(int mass,int patienceLevel) {
+    public Courier(int mass, int patienceLevel) {
         this.patienceLevel = patienceLevel;
-        for(int i=0;i<(int)(Math.random()*2 +1);i++) {
-            Pack pack = new Pack((int)(Math.random() * (8) + 1), (int) (Math.random() * 8 + 1));
+        for (int i = 0; i < (int) (Math.random() * 2 + 1); i++) {
+            Pack pack = new Pack((int) (Math.random() * (8) + 1), (int) (Math.random() * 8 + 1));
             packList.add(pack);
-            mass+=pack.getMass();
+            mass += pack.getMass();
         }
-        this.mass=mass;
+        this.mass = mass;
         Collections.sort(packList);
         this.destinationFloor = packList.get(0).getDestinationFloor();
+    }
+
+    @Override
+    public String getName() {
+        return "Courier";
     }
 }

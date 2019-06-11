@@ -1,15 +1,23 @@
+import java.util.ArrayList;
+
 public class Person {
     protected int mass;
     protected int destinationFloor;
     protected int patienceLevel;
-    protected boolean upDirection;
+
+    public String getName() {
+        return "Person";
+    }
 
     public Person(int mass, int destinationFloor, int patienceLevel) {
         this.mass = mass;
         this.destinationFloor = destinationFloor;
         this.patienceLevel = patienceLevel;
     }
-    public Person(){}
+
+    public Person() {
+    }
+
     public int getMass() {
         return mass;
     }
@@ -34,8 +42,8 @@ public class Person {
         this.patienceLevel = patienceLevel;
     }
 
-    public boolean spaceInElevator(Elevator elevator) {
-        if ((elevator.getFloorNum() - elevator.direction) * (elevator.getFloorNum() - destinationFloor) >= 0) {
+    public boolean spaceInElevator(Elevator elevator) { /* sprawdza czy mozemy wejsc do windy */
+        if ((elevator.getFloorNum() - elevator.getDirection()) * (elevator.getFloorNum() - destinationFloor) >= 0) {
             if (elevator.pplInElevator.size() < elevator.getCapacity() && elevator.getActualMass() + mass <= elevator.getMassCapacity()) {
                 return true;
             }
@@ -49,6 +57,4 @@ public class Person {
         temp = temp - 1;
         setPatienceLevel(temp);
     }
-
-
 }

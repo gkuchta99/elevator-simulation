@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Floor {
@@ -51,15 +52,14 @@ public class Floor {
         return courier;
     }
 
-    public void getPplIntoElevator(Elevator elevator) {
+    public void getPplIntoElevator(Elevator elevator, PrintWriter printWriter) {
         if (pplOnTheFloor.size() != 0) {
             for (int i = pplOnTheFloor.size() - 1; i >= 0; i--) {
                 if (pplOnTheFloor.get(i).spaceInElevator(elevator)) {
                     elevator.pplInElevator.add(pplOnTheFloor.get(i));
                     elevator.setActualMass(elevator.getActualMass() + pplOnTheFloor.get(i).getMass());
+                    printWriter.println(pplOnTheFloor.get(i).getName() + " entered elevator at:" + floorNum + " floor");
                     pplOnTheFloor.remove(i);
-                    System.out.println("osoba weszla do windy na " + elevator.getFloorNum() + " pietrze");
-
                 }
             }
         }
