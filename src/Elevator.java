@@ -8,10 +8,15 @@ public class Elevator {
     private int massCapacity; // in kilograms
     private int actualMass;
     private boolean destinationAcomplished;
+    private int good=0;//zlicza ilosc dobrze obsluzonych osob
     ArrayList<Person> pplInElevator = new ArrayList<>(capacity);
 
     public int getDirection() {
         return direction;
+    }
+
+    public int getGood() {
+        return good;
     }
 
     public int getActualMass() {
@@ -96,6 +101,7 @@ public class Elevator {
                 }
                 printWriter.println(pplInElevator.get(i).getName() + " exited elevator at:" + floorNum + " floor");
                 pplInElevator.remove(i);
+                good++;
             }
         }
     }
