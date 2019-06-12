@@ -22,10 +22,10 @@ public class Main {
             Elevator elevator = new Elevator(0, 14, 1000);
             elevatorArray[j] = elevator;
         }
-        int[] randomPeopleArray = {1, 2, 0, 1, 1, 0, 0, 1, 2, 0, 0, 1, 2, 1, 1, 2, 0,0,0,0,0, 2, 2, 1, 0, 0};
+        int[] randomPeopleArray = {1, 2, 0, 1, 1, 0, 0, 1, 2, 0, 0, 1, 2, 1, 1, 2, 0, 0, 0, 0, 0, 2, 2, 1, 0, 0};
         int[] directionsArray = new int[3];
-        int[] choosingPeopleTypes = {1, 1, 1, 3, 1, 1, 2, 3, 1, 1, 1, 1, 1, 3,1,1,1,1,1,1,1,1,1,1,3,3};
-        int bad=0;//liczba zliczanych zle obsluzonych osob
+        int[] choosingPeopleTypes = {1, 1, 1, 3, 1, 1, 2, 3, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3};
+        int bad = 0;//liczba zliczanych zle obsluzonych osob
         //main loop of simulation
         for (int x = 0; x < iterations; x++) {
             printWriter.println("==============================================");
@@ -101,7 +101,7 @@ public class Main {
                 }
             }
         }
-        printWriter.println("Well serviced:"+elevatorArray[0].getGood()+elevatorArray[1].getGood()+elevatorArray[2].getGood()+" poorly serviced:"+bad);
+        printWriter.println("Well serviced:" + elevatorArray[0].getGood() + elevatorArray[1].getGood() + elevatorArray[2].getGood() + " poorly serviced:" + bad);
         printWriter.close();
     }
 }
