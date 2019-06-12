@@ -27,7 +27,7 @@ public class Floor {
         int temp;
         int mass = 40 + (int) (Math.random() * ((100 - 40) + 1));
         do {
-            temp = (int) (Math.random() * (floors - 1));
+            temp = (int) (Math.random() * (floors));
         } while (temp == floorNum);
         int patienceLevel = 5 + (int) (Math.random() * ((15 - 5) + 1));
         Person person = new Person(mass, temp, patienceLevel);
@@ -38,7 +38,7 @@ public class Floor {
         int temp;
         int mass = 15 + (int) (Math.random() * 35);
         do {
-            temp = (int) (Math.random() * (floors - 1));
+            temp = (int) (Math.random() * (floors));
         } while (temp == floorNum);
         int patienceLevel = 5 + (int) (Math.random() * ((15 - 5) + 1));
         Kid kid = new Kid(mass, temp, patienceLevel);

@@ -9,11 +9,11 @@ public class Main {
         } catch (FileNotFoundException e) {
             System.err.println("FILE NOT FOUND");
         }
-        int floors = 10;
         Scanner scanner = new Scanner(System.in);
+        int floors = scanner.nextInt();
         int iterations = scanner.nextInt();
-        Floor[] floorsArray = new Floor[floors]; // temporary solution
-        for (int i = 0; i < floors; i++) {
+        Floor[] floorsArray = new Floor[floors];
+        for (int i = 0; i < floorsArray.length; i++) {
             Floor floor = new Floor(i);
             floorsArray[i] = floor;
         }
@@ -24,14 +24,14 @@ public class Main {
         }
         int[] randomPeopleArray = {1, 2, 0, 1, 1, 0, 0, 1, 2, 0, 0, 1, 2, 1, 1, 2, 0, 1, 1, 1, 1, 2, 2, 1, 0, 0};
         int[] directionsArray = new int[3];
-        int[] choosingPeopleTypes = {1, 1, 1,3, 1, 1, 2,3,1, 1, 1, 1, 1, 3};
+        int[] choosingPeopleTypes = {1, 1, 1, 3, 1, 1, 2, 3, 1, 1, 1, 1, 1, 3};
         //main loop of simulation
         for (int x = 0; x < iterations; x++) {
             printWriter.println("==============================================");
             printWriter.println("TURN:" + x);
             //generating ppl on the floors
             for (int e = 0; e < randomPeopleArray[(int) (Math.random() * (randomPeopleArray.length - 1))]; e++) {
-                int a = (int) (Math.random() * (floorsArray.length - 1));
+                int a = (int) (Math.random() * (floorsArray.length));
                 switch (choosingPeopleTypes[(int) (Math.random() * (choosingPeopleTypes.length - 1))]) {
                     case 1:
                         floorsArray[a].pplOnTheFloor.add(floorsArray[a].personGenerator(floors));
@@ -57,7 +57,7 @@ public class Main {
             for (int i = 0; i < elevatorArray.length; i++) {
                 printWriter.println("Elevator:" + i + ", people in elevator:" + elevatorArray[i].pplInElevator.size());
             }
-            //pressing buttons on the floors (works)
+            //pressing buttons on the floors
             for (int g = 0; g < floorsArray.length; g++) {
                 for (int i = 0; i < 3; i++) {
                     if (floorsArray[g].getFloorNum() == elevatorArray[i].getFloorNum()) {
@@ -67,7 +67,7 @@ public class Main {
                     }
                 }
             }
-            printWriter.println("Actions=======================================");
+            printWriter.println("===================Actions====================");
             for (int z = 0; z < 3; z++) {
                 directionsArray[z] = elevatorArray[z].getDirection();
             }
@@ -84,7 +84,7 @@ public class Main {
             for (int i = 0; i < elevatorArray.length; i++) {
                 elevatorArray[i].exit(floorsArray, printWriter);
             }
-            // ppl getting into elevator (works) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // ppl getting into elevator
             for (int i = 0; i < 3; i++) {
                 floorsArray[elevatorArray[i].getFloorNum()].getPplIntoElevator(elevatorArray[i], printWriter);
             }
